@@ -28,6 +28,11 @@ public class ChessGame {
         this.gameState = gameState.end();
     }
 
+    public void status() {
+        this.gameState = gameState.status();
+        // TODO: 점수 및 결과 생성 및 리턴!
+    }
+
     public boolean isPlaying() {
         return gameState.isPlaying();
     }

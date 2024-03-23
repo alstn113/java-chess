@@ -66,7 +66,7 @@ public class ChessController {
     }
 
     private void status() {
-        // TODO 각 진영의 점수 출력
-        // TODO 어느 진영이 이겼는지 결과 출력
+        chessGame.status();
+        // TODO 점수와 결과 출력
     }
 }

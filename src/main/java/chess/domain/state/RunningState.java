@@ -1,6 +1,6 @@
 package chess.domain.state;
 
-public abstract class MoveState implements GameState {
+public abstract class RunningState implements GameState {
     @Override
     public GameState start() {
         throw new UnsupportedOperationException("이미 시작한 상태입니다.");

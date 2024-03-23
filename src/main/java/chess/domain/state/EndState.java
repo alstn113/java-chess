@@ -20,6 +20,11 @@ public class EndState implements GameState {
     }
 
     @Override
+    public GameState status() {
+        throw new UnsupportedOperationException("종료 상태에서는 점수와 결과를 볼 수 없습니다.");
+    }
+
+    @Override
     public boolean isPlaying() {
         return false;
     }
