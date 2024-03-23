@@ -47,8 +47,7 @@ public class Pawn extends Piece {
     }
 
     private void addMultipleForwardMoves(Board board, Direction direction, Set<Position> movablePositions,
-                                         int currentRank,
-                                         Position nextPosition) {
+                                         int currentRank, Position nextPosition) {
         if (!isStartingPosition(direction, currentRank)) {
             return;
         }
