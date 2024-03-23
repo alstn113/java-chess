@@ -1,7 +1,6 @@
 package chess.domain.command;
 
 import java.util.Arrays;
-import java.util.List;
 
 public enum GameCommand {
     START("start", 0),
@@ -16,12 +15,9 @@ public enum GameCommand {
         this.argsCount = argsCount;
     }
 
-    public static GameCommand from(CommandCondition commandCondition) {
-        String command = commandCondition.command();
-        List<String> args = commandCondition.args();
-
+    public static GameCommand from(String command) {
         return Arrays.stream(values())
-                .filter(gameCommand -> gameCommand.isSameCommand(command) && gameCommand.isSameArgsCount(args))
+                .filter(gameCommand -> gameCommand.isSameCommand(command))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게임 명령어입니다."));
     }
@@ -30,7 +26,7 @@ public enum GameCommand {
         return this.command.equals(command);
     }
 
-    private boolean isSameArgsCount(List<String> args) {
-        return argsCount == args.size();
+    public boolean isSameArgsCount(int argsCount) {
+        return this.argsCount == argsCount;
     }
 }

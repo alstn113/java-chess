@@ -6,42 +6,33 @@ import chess.domain.command.CommandExecutor;
 import chess.domain.command.GameCommand;
 import chess.view.InputView;
 import chess.view.OutputView;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class ChessController {
-    private final Map<GameCommand, CommandExecutor> commands;
     private final ChessGame chessGame;
+    private final Map<GameCommand, CommandExecutor> commands = Map.of(
+            GameCommand.MOVE, this::move,
+            GameCommand.START, args -> start(),
+            GameCommand.END, args -> end()
+    );
 
     public ChessController(ChessGame chessGame) {
-        this.commands = new EnumMap<>(GameCommand.class);
         this.chessGame = chessGame;
     }
 
     public void run() {
-        registerCommands();
-        playChess();
-    }
-
-    private void registerCommands() {
-        commands.put(GameCommand.MOVE, this::move);
-        commands.put(GameCommand.START, args -> start());
-        commands.put(GameCommand.END, args -> end());
-    }
-
-    private void playChess() {
         OutputView.printGameStartMessage();
 
         while (chessGame.isPlaying()) {
-            retryOnException(this::executeCommand);
+            repeatUntilValidCommand();
         }
     }
 
     private void executeCommand() {
         List<String> inputCommand = InputView.readGameCommand();
         CommandCondition commandCondition = CommandCondition.of(inputCommand);
-        GameCommand gameCommand = GameCommand.from(commandCondition);
+        GameCommand gameCommand = commandCondition.gameCommand();
 
         commands.get(gameCommand).execute(commandCondition);
     }
@@ -64,12 +55,12 @@ public class ChessController {
         chessGame.end();
     }
 
-    private void retryOnException(Runnable runnable) {
+    private void repeatUntilValidCommand() {
         try {
-            runnable.run();
+            executeCommand();
         } catch (RuntimeException e) {
             OutputView.printErrorMessage(e.getMessage());
-            retryOnException(runnable);
+            repeatUntilValidCommand();
         }
     }
 }
