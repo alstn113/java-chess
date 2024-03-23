@@ -8,6 +8,6 @@ public class Queen extends MultiStepPiece {
     public static final Queen WHITE = new Queen(Color.WHITE);
 
     private Queen(Color color) {
-        super(color, PieceType.QUEEN, Direction.ofAll);
+        super(color, PieceType.QUEEN, Direction.ALL);
     }
 }
