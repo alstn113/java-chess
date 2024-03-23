@@ -1,8 +1,5 @@
 package chess.controller;
 
-import static chess.domain.command.GameCommand.SOURCE_INDEX;
-import static chess.domain.command.GameCommand.TARGET_INDEX;
-
 import chess.domain.ChessGame;
 import chess.domain.command.CommandCondition;
 import chess.domain.command.CommandExecutor;
@@ -47,8 +44,8 @@ public class ChessController {
     }
 
     private void move(CommandCondition commandCondition) {
-        String source = commandCondition.getArg(SOURCE_INDEX);
-        String target = commandCondition.getArg(TARGET_INDEX);
+        String source = commandCondition.getSource();
+        String target = commandCondition.getTarget();
         chessGame.movePiece(source, target);
 
         OutputView.printChessBoard(chessGame.getBoard());
@@ -63,7 +60,7 @@ public class ChessController {
             executeCommand();
         } catch (RuntimeException e) {
             OutputView.printErrorMessage(e.getMessage());
-            executeCommand();
+            repeatUntilValidCommand();
         }
     }
 }

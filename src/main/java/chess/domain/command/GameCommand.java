@@ -7,9 +7,6 @@ public enum GameCommand {
     END("end", 0),
     MOVE("move", 2);
 
-    public static final int SOURCE_INDEX = 0;
-    public static final int TARGET_INDEX = 1;
-
     private final String command;
     private final int argsCount;
 

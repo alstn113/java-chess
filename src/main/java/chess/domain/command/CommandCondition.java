@@ -4,6 +4,8 @@ import java.util.List;
 
 public record CommandCondition(GameCommand gameCommand, List<String> args) {
     private static final int COMMAND_INDEX = 0;
+    private static final int SOURCE_INDEX = 0;
+    private static final int TARGET_INDEX = 1;
 
     public static CommandCondition of(List<String> inputCommand) {
         GameCommand gameCommand = GameCommand.from(inputCommand.get(COMMAND_INDEX));
@@ -20,11 +22,21 @@ public record CommandCondition(GameCommand gameCommand, List<String> args) {
         }
     }
 
-    public String getArg(int index) {
-        if (args.size() < index) {
-            throw new IllegalArgumentException("현재 명령어에 해당 인덱스의 인자가 존재하지 않습니다.");
-        }
+    public String getSource() {
+        validateIsMoveCommand();
 
-        return args.get(index);
+        return args.get(SOURCE_INDEX);
+    }
+
+    public String getTarget() {
+        validateIsMoveCommand();
+
+        return args.get(TARGET_INDEX);
+    }
+
+    private void validateIsMoveCommand() {
+        if (gameCommand != GameCommand.MOVE) {
+            throw new IllegalArgumentException("MOVE 명령어가 아닙니다.");
+        }
     }
 }
