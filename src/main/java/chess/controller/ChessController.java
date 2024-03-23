@@ -14,7 +14,8 @@ public class ChessController {
     private final Map<GameCommand, CommandExecutor> commands = Map.of(
             GameCommand.MOVE, this::move,
             GameCommand.START, args -> start(),
-            GameCommand.END, args -> end()
+            GameCommand.END, args -> end(),
+            GameCommand.STATUS, args -> status()
     );
 
     public ChessController(ChessGame chessGame) {
@@ -37,6 +38,15 @@ public class ChessController {
         commands.get(gameCommand).execute(commandCondition);
     }
 
+    private void repeatUntilValidCommand() {
+        try {
+            executeCommand();
+        } catch (RuntimeException e) {
+            OutputView.printErrorMessage(e.getMessage());
+            repeatUntilValidCommand();
+        }
+    }
+
     private void start() {
         chessGame.start();
 
@@ -55,12 +65,8 @@ public class ChessController {
         chessGame.end();
     }
 
-    private void repeatUntilValidCommand() {
-        try {
-            executeCommand();
-        } catch (RuntimeException e) {
-            OutputView.printErrorMessage(e.getMessage());
-            repeatUntilValidCommand();
-        }
+    private void status() {
+        // TODO 각 진영의 점수 출력
+        // TODO 어느 진영이 이겼는지 결과 출력
     }
 }
