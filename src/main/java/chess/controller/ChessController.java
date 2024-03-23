@@ -1,5 +1,8 @@
 package chess.controller;
 
+import static chess.domain.command.GameCommand.SOURCE_INDEX;
+import static chess.domain.command.GameCommand.TARGET_INDEX;
+
 import chess.domain.ChessGame;
 import chess.domain.command.CommandCondition;
 import chess.domain.command.CommandExecutor;
@@ -41,7 +44,7 @@ public class ChessController {
     private void executeCommand() {
         List<String> inputCommand = InputView.readGameCommand();
         CommandCondition commandCondition = CommandCondition.of(inputCommand);
-        GameCommand gameCommand = GameCommand.from(commandCondition);
+        GameCommand gameCommand = commandCondition.gameCommand();
 
         commands.get(gameCommand).execute(commandCondition);
     }
@@ -53,8 +56,8 @@ public class ChessController {
     }
 
     private void move(CommandCondition commandCondition) {
-        String source = commandCondition.getSource();
-        String target = commandCondition.getTarget();
+        String source = commandCondition.getArg(SOURCE_INDEX);
+        String target = commandCondition.getArg(TARGET_INDEX);
         chessGame.movePiece(source, target);
 
         OutputView.printChessBoard(chessGame.getBoard());
