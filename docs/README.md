@@ -8,7 +8,7 @@
     - start: 게임 시작
     - end: 게임 종료
     - move {source} {target} ex) move a1 b3: 기물 움직임
-    - status: 각 진영의 점수를 출력, 어느 진영이 이겼는지 결과 출력
+    - status: 각 진영의 점수를 출력, 어느 진영이 이겼는지 결과 출력, 주의) 종료하지는 않음!!
 - start와 move 시 체스판과 기물 위치를 출력한다.
 
 ### 체스 게임(Chess Game)
