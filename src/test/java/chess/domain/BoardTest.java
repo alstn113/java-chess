@@ -3,7 +3,6 @@ package chess.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import chess.domain.piece.Empty;
 import chess.domain.piece.Knight;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Rook;
@@ -34,7 +33,7 @@ class BoardTest {
 
         Piece findPiece = board.findPieceByPosition(PositionFixture.A3);
 
-        assertThat(findPiece).isEqualTo(new Empty());
+        assertThat(findPiece.isEmpty()).isTrue();
     }
 
     @DisplayName("기물을 이동하는 경우 ")

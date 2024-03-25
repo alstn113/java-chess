@@ -14,7 +14,12 @@ public class Pawn extends Piece {
     public static final Pawn WHITE = new Pawn(Color.WHITE, Direction.WHITE_PAWN);
 
     private Pawn(Color color, Set<Direction> directions) {
-        super(color, PieceType.PAWN, directions);
+        super(color, directions);
+    }
+
+    @Override
+    public PieceType pieceType() {
+        return PieceType.PAWN;
     }
 
     @Override
@@ -68,7 +73,7 @@ public class Pawn extends Piece {
         Position nextPosition = position.next(direction);
         Piece piece = board.findPieceByPosition(nextPosition);
 
-        if (!isSameColor(piece) && !piece.isEmpty()) {
+        if (isNotSameColor(piece) && !piece.isEmpty()) {
             movablePositions.add(nextPosition);
         }
     }

@@ -4,17 +4,14 @@ import chess.domain.Board;
 import chess.domain.Color;
 import chess.domain.Direction;
 import chess.domain.position.Position;
-import java.util.Objects;
 import java.util.Set;
 
 public abstract class Piece {
     protected final Set<Direction> directions;
     private final Color color;
-    private final PieceType pieceType;
 
-    protected Piece(Color color, PieceType pieceType, Set<Direction> directions) {
+    protected Piece(Color color, Set<Direction> directions) {
         this.color = color;
-        this.pieceType = pieceType;
         this.directions = directions;
     }
 
@@ -24,36 +21,18 @@ public abstract class Piece {
         return color.isWhite();
     }
 
+    public abstract PieceType pieceType();
+
     public boolean isEmpty() {
-        return getPieceType() == PieceType.NONE;
+        return pieceType() == PieceType.NONE;
     }
 
-    public boolean isSameColor(Piece piece) {
-        return color.isSame(piece.color);
+    public boolean isNotSameColor(Piece piece) {
+        return !color.isSame(piece.color);
     }
 
     public boolean isSameColor(Color other) {
         return color.isSame(other);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Piece piece)) {
-            return false;
-        }
-        return color == piece.color && pieceType == piece.pieceType;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(color, pieceType);
-    }
-
-    public PieceType getPieceType() {
-        return pieceType;
     }
 
     public Color getColor() {
