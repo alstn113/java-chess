@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class SingleStepPiece extends Piece {
-    protected SingleStepPiece(Color color, PieceType pieceType, Set<Direction> directions) {
-        super(color, pieceType, directions);
+    protected SingleStepPiece(Color color, Set<Direction> directions) {
+        super(color, directions);
     }
 
     @Override
@@ -30,7 +30,7 @@ public abstract class SingleStepPiece extends Piece {
         position = position.next(direction);
         Piece piece = board.findPieceByPosition(position);
 
-        if (!isSameColor(piece)) {
+        if (isNotSameColor(piece)) {
             movablePositions.add(position);
         }
     }

@@ -8,11 +8,16 @@ import java.util.Set;
 
 public class Empty extends Piece {
     public Empty() {
-        super(Color.NONE, PieceType.NONE, Collections.emptySet());
+        super(Color.NONE, Collections.emptySet());
     }
 
     @Override
     public Set<Position> calculateMovablePositions(Position currentPosition, Board board) {
         throw new UnsupportedOperationException("비어 있는 칸은 움직일 수 없습니다.");
+    }
+
+    @Override
+    public PieceType pieceType() {
+        return PieceType.NONE;
     }
 }

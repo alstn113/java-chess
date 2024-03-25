@@ -8,6 +8,11 @@ public class Rook extends MultiStepPiece {
     public static final Rook WHITE = new Rook(Color.WHITE);
 
     private Rook(Color color) {
-        super(color, PieceType.ROOK, Direction.STRAIGHT);
+        super(color, Direction.STRAIGHT);
+    }
+
+    @Override
+    public PieceType pieceType() {
+        return PieceType.ROOK;
     }
 }

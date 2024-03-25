@@ -8,6 +8,11 @@ public class King extends SingleStepPiece {
     public static final King WHITE = new King(Color.WHITE);
 
     private King(Color color) {
-        super(color, PieceType.KING, Direction.ALL);
+        super(color, Direction.ALL);
+    }
+
+    @Override
+    public PieceType pieceType() {
+        return PieceType.KING;
     }
 }

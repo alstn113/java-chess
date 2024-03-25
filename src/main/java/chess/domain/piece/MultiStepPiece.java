@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class MultiStepPiece extends Piece {
-    protected MultiStepPiece(Color color, PieceType pieceType, Set<Direction> directions) {
-        super(color, pieceType, directions);
+    protected MultiStepPiece(Color color, Set<Direction> directions) {
+        super(color, directions);
     }
 
     @Override
@@ -28,7 +28,7 @@ public abstract class MultiStepPiece extends Piece {
         Position nextPosition = position.next(direction);
         Piece piece = board.findPieceByPosition(nextPosition);
 
-        if (!isSameColor(piece)) {
+        if (isNotSameColor(piece)) {
             movablePositions.add(nextPosition);
         }
 
