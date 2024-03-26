@@ -8,14 +8,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class MultiStepPiece extends Piece {
-    protected MultiStepPiece(Color color, Set<Direction> directions) {
-        super(color, directions);
+    protected MultiStepPiece(Color color) {
+        super(color);
     }
 
     @Override
     public Set<Position> calculateMovablePositions(Position currentPosition, Board board) {
         Set<Position> movablePositions = new HashSet<>();
-        directions.forEach(direction -> addMoves(board, direction, currentPosition, movablePositions));
+        directions().forEach(direction -> addMoves(board, direction, currentPosition, movablePositions));
 
         return movablePositions;
     }

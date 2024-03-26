@@ -8,15 +8,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class SingleStepPiece extends Piece {
-    protected SingleStepPiece(Color color, Set<Direction> directions) {
-        super(color, directions);
+    protected SingleStepPiece(Color color) {
+        super(color);
     }
 
     @Override
     public Set<Position> calculateMovablePositions(Position currentPosition, Board board) {
         Set<Position> movablePositions = new HashSet<>();
 
-        directions.forEach(direction -> addMoves(currentPosition, board, direction, movablePositions));
+        directions().forEach(direction -> addMoves(currentPosition, board, direction, movablePositions));
 
         return movablePositions;
     }

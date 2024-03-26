@@ -7,12 +7,10 @@ import chess.domain.position.Position;
 import java.util.Set;
 
 public abstract class Piece {
-    protected final Set<Direction> directions;
     private final Color color;
 
-    protected Piece(Color color, Set<Direction> directions) {
+    protected Piece(Color color) {
         this.color = color;
-        this.directions = directions;
     }
 
     public abstract Set<Position> calculateMovablePositions(Position currentPosition, Board board);
@@ -22,6 +20,8 @@ public abstract class Piece {
     }
 
     public abstract PieceType pieceType();
+
+    protected abstract Set<Direction> directions();
 
     public boolean isEmpty() {
         return pieceType() == PieceType.NONE;
