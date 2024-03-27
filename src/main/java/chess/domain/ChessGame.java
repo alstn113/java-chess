@@ -1,5 +1,6 @@
 package chess.domain;
 
+import chess.domain.board.Board;
 import chess.domain.position.Position;
 import chess.domain.state.GameState;
 import chess.domain.state.ReadyState;

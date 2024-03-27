@@ -1,6 +1,6 @@
 package chess.view;
 
-import chess.domain.Board;
+import chess.domain.board.Board;
 import chess.domain.ChessGameStatus;
 import java.util.ArrayList;
 import java.util.Collections;
