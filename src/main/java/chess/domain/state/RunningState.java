@@ -12,6 +12,11 @@ public abstract class RunningState implements GameState {
     }
 
     @Override
+    public GameState status() {
+        return this;
+    }
+
+    @Override
     public boolean isPlaying() {
         return true;
     }

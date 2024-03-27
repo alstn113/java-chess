@@ -1,12 +1,13 @@
 package chess.domain.state;
 
 import chess.domain.Board;
+import chess.domain.Color;
 import chess.domain.position.Position;
 
 public class ReadyState implements GameState {
     @Override
     public GameState start() {
-        return new WhiteState();
+        return new MoveState(Color.WHITE);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class ReadyState implements GameState {
 
     @Override
     public GameState status() {
-        throw new UnsupportedOperationException("준비 상태에서는 점수와 결과를 볼 수 없습니다.");
+        throw new UnsupportedOperationException("준비 상태에서는 상태를 볼 수 없습니다.");
     }
 
     @Override

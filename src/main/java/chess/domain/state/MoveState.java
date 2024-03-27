@@ -4,10 +4,10 @@ import chess.domain.Board;
 import chess.domain.Color;
 import chess.domain.position.Position;
 
-public class StatusState extends RunningState {
+public class MoveState extends RunningState {
     private final Color color;
 
-    public StatusState(Color color) {
+    public MoveState(Color color) {
         this.color = color;
     }
 
@@ -15,15 +15,10 @@ public class StatusState extends RunningState {
     public GameState move(Board board, Position source, Position target) {
         board.move(source, target, color);
 
-        if (color.isWhite()) {
-            return new BlackState();
+        if (board.isKingDead(color.getOpposite())) {
+            return new EndState();
         }
 
-        return new WhiteState();
-    }
-
-    @Override
-    public GameState status() {
-        return new StatusState(color);
+        return new MoveState(color.getOpposite());
     }
 }
