@@ -21,4 +21,9 @@ public class Knight extends SingleStepPiece {
     public Set<Direction> directions() {
         return Direction.KNIGHT;
     }
+
+    @Override
+    public double score() {
+        return 2.5;
+    }
 }

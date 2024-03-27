@@ -21,4 +21,9 @@ public class King extends SingleStepPiece {
     public Set<Direction> directions() {
         return Direction.ALL;
     }
+
+    @Override
+    public double score() {
+        return 0;
+    }
 }

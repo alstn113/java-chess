@@ -21,4 +21,9 @@ public class Bishop extends MultiStepPiece {
     public Set<Direction> directions() {
         return Direction.DIAGONAL;
     }
+
+    @Override
+    public double score() {
+        return 3;
+    }
 }

@@ -23,8 +23,18 @@ public abstract class Piece {
 
     protected abstract Set<Direction> directions();
 
+    public abstract double score();
+
     public boolean isEmpty() {
         return pieceType() == PieceType.NONE;
+    }
+
+    public boolean isKing() {
+        return pieceType() == PieceType.KING;
+    }
+
+    public boolean isPawn() {
+        return pieceType() == PieceType.PAWN;
     }
 
     public boolean isNotSameColor(Piece piece) {

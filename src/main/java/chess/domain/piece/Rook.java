@@ -21,4 +21,9 @@ public class Rook extends MultiStepPiece {
     public Set<Direction> directions() {
         return Direction.STRAIGHT;
     }
+
+    @Override
+    public double score() {
+        return 5;
+    }
 }

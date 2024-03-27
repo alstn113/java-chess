@@ -31,6 +31,11 @@ public class Pawn extends Piece {
     }
 
     @Override
+    public double score() {
+        return 1;
+    }
+
+    @Override
     public Set<Position> calculateMovablePositions(Position currentPosition, Board board) {
         Set<Position> movablePositions = new HashSet<>();
         directions().forEach(direction -> {

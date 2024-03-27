@@ -23,6 +23,11 @@ public class Empty extends Piece {
     }
 
     @Override
+    public double score() {
+        return 0;
+    }
+
+    @Override
     public Set<Position> calculateMovablePositions(Position currentPosition, Board board) {
         throw new UnsupportedOperationException("비어 있는 칸은 움직일 수 없습니다.");
     }

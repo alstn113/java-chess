@@ -21,4 +21,9 @@ public class Queen extends MultiStepPiece {
     public Set<Direction> directions() {
         return Direction.ALL;
     }
+
+    @Override
+    public double score() {
+        return 9;
+    }
 }
