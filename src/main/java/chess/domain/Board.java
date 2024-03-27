@@ -6,6 +6,7 @@ import chess.domain.position.Position;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Board {
     private final Map<Position, Piece> pieces;
@@ -25,6 +26,18 @@ public class Board {
 
         pieces.put(targetPosition, sourcePiece);
         pieces.remove(sourcePosition);
+    }
+
+    public double calculateScore(Color color) {
+        Map<Position, Piece> colorPieces = getPiecesByColor(color);
+
+        return ScoreCalculator.calculateScore(colorPieces);
+    }
+
+    private Map<Position, Piece> getPiecesByColor(Color color) {
+        return pieces.entrySet().stream()
+                .filter(entry -> entry.getValue().isSameColor(color))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     private void validateMove(Position sourcePosition, Position targetPosition, Color color, Piece sourcePiece) {
@@ -57,6 +70,12 @@ public class Board {
         if (!movablePositions.contains(targetPosition)) {
             throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
         }
+    }
+
+    public boolean isKingDead(Color color) {
+        return pieces.values().stream()
+                .filter(piece -> piece.isSameColor(color))
+                .noneMatch(Piece::isKing);
     }
 
     public Map<Position, Piece> getPieces() {

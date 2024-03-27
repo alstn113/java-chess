@@ -17,7 +17,7 @@ public class ChessGame {
         this.gameState = gameState.start();
     }
 
-    public void movePiece(String source, String target) {
+    public void move(String source, String target) {
         Position sourcePosition = Position.convert(source);
         Position targetPosition = Position.convert(target);
 
@@ -28,9 +28,14 @@ public class ChessGame {
         this.gameState = gameState.end();
     }
 
-    public void status() {
+    public ChessGameStatus status() {
+        double whiteScore = board.calculateScore(Color.WHITE);
+        double blackScore = board.calculateScore(Color.BLACK);
+        ChessGameStatus chessGameStatus = new ChessGameStatus(whiteScore, blackScore);
+
         this.gameState = gameState.status();
-        // TODO: 점수 및 결과 생성 및 리턴!
+
+        return chessGameStatus;
     }
 
     public boolean isPlaying() {

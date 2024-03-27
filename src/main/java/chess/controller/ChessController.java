@@ -1,6 +1,7 @@
 package chess.controller;
 
 import chess.domain.ChessGame;
+import chess.domain.ChessGameStatus;
 import chess.domain.command.CommandCondition;
 import chess.domain.command.CommandExecutor;
 import chess.domain.command.GameCommand;
@@ -56,7 +57,7 @@ public class ChessController {
     private void move(CommandCondition commandCondition) {
         String source = commandCondition.getSource();
         String target = commandCondition.getTarget();
-        chessGame.movePiece(source, target);
+        chessGame.move(source, target);
 
         OutputView.printChessBoard(chessGame.getBoard());
     }
@@ -66,7 +67,7 @@ public class ChessController {
     }
 
     private void status() {
-        chessGame.status();
-        // TODO 점수와 결과 출력
+        ChessGameStatus chessGameStatus = chessGame.status();
+        OutputView.printChessGameStatus(chessGameStatus);
     }
 }

@@ -1,6 +1,7 @@
 package chess.view;
 
 import chess.domain.Board;
+import chess.domain.ChessGameStatus;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,5 +54,27 @@ public class OutputView {
             String pieceDisplay = PieceDisplay.convert(piece);
             boardDisplays.get(MAX_ROW - rank - 1).set(file, pieceDisplay);
         });
+    }
+
+    public static void printChessGameStatus(ChessGameStatus chessGameStatus) {
+        double whiteScore = chessGameStatus.whiteScore();
+        double blackScore = chessGameStatus.blackScore();
+
+        String gameResultMessage = createGameResultMessage(whiteScore, blackScore);
+        String message = String.format("흰색 점수: %.1f, 검은색 점수: %.1f", whiteScore, blackScore);
+
+        System.out.println(message + NEW_LINE + gameResultMessage);
+    }
+
+    private static String createGameResultMessage(double whiteScore, double blackScore) {
+        if (whiteScore > blackScore) {
+            return "흰색 승리";
+        }
+
+        if (whiteScore < blackScore) {
+            return "검은색 승리";
+        }
+
+        return "무승부";
     }
 }

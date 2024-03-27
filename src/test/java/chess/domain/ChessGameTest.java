@@ -34,7 +34,7 @@ class ChessGameTest {
     @Test
     void movePiece() {
         chessGame.start();
-        chessGame.movePiece("b2", "b3");
+        chessGame.move("b2", "b3");
 
         assertThat(chessGame.isPlaying()).isTrue();
     }
