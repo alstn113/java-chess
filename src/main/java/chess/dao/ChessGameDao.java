@@ -1,6 +1,7 @@
 package chess.dao;
 
-public interface ChessGameDao {
-    void save();
+import chess.dto.ChessGameRequest;
 
+public interface ChessGameDao {
+    void save(ChessGameRequest chessGameRequest);
 }

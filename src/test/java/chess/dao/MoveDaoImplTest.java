@@ -13,8 +13,8 @@ class MoveDaoImplTest {
     @DisplayName("moveDao를 저장할 수 있다.")
     @Test
     void save() {
-        Position source = Position.convert("b2");
-        Position target = Position.convert("b4");
+        Position source = Position.convert("a2");
+        Position target = Position.convert("a4");
 
         moveDaoImpl.save(MoveRequest.of(source, target, 1L));
     }
