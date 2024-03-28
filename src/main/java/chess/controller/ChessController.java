@@ -2,9 +2,9 @@ package chess.controller;
 
 import chess.domain.ChessGame;
 import chess.domain.ChessGameStatus;
-import chess.domain.command.CommandCondition;
-import chess.domain.command.CommandExecutor;
-import chess.domain.command.GameCommand;
+import chess.controller.command.CommandCondition;
+import chess.controller.command.CommandExecutor;
+import chess.controller.command.GameCommand;
 import chess.view.InputView;
 import chess.view.OutputView;
 import java.util.List;
