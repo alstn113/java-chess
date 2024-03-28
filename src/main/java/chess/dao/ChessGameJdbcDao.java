@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class ChessGameDaoImpl implements ChessGameDao {
+public class ChessGameJdbcDao implements ChessGameDao {
 
     @Override
     public void save(ChessGameRequest chessGameRequest) {
@@ -29,9 +29,10 @@ public class ChessGameDaoImpl implements ChessGameDao {
         String query = "SELECT * FROM chess_game WHERE game_status = ? ORDER BY id DESC LIMIT 1";
 
         try (Connection connection = DBConnectionUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
             preparedStatement.setString(1, "PLAYING");
-            ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 return Optional.of(new ChessGameResponse(

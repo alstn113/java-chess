@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoveDaoImpl implements MoveDao {
+public class MoveJdbcDao implements MoveDao {
     @Override
     public void save(MoveRequest moveRequest) {
         String query = "INSERT INTO move (source, target, chess_game_id) VALUES (?, ?, ?)";
@@ -31,10 +31,10 @@ public class MoveDaoImpl implements MoveDao {
         String query = "SELECT * FROM move WHERE chess_game_id = ?";
 
         try (Connection connection = DBConnectionUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             preparedStatement.setLong(1, chessGameId);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
             List<MoveResponse> pieceResponses = new ArrayList<>();
             while (resultSet.next()) {
                 pieceResponses.add(new MoveResponse(
