@@ -91,4 +91,8 @@ public class Position {
     public int getRank() {
         return rank.getValue();
     }
+
+    public String getValue() {
+        return file.getCommand() + rank.getCommand();
+    }
 }

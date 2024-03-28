@@ -1,13 +1,13 @@
 USE chess;
 
 CREATE TABLE chess_game (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    color VARCHAR(5) NOT NULL,
+                            name VARCHAR(255) PRIMARY KEY
 );
 
-CREATE TABLE piece {
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    game_id FOREIGN KEY REFERENCES chess_game(id),
-    file VARCHAR(2) NOT NULL,
-    rank VARCHAR(2) NOT NULL,
-}
+CREATE TABLE move (
+                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                      source VARCHAR(2) NOT NULL,
+                      target VARCHAR(2) NOT NULL,
+                      chess_game_name VARCHAR(255) NOT NULL,
+                      FOREIGN KEY (chess_game_name) REFERENCES chess_game(name)
+);
