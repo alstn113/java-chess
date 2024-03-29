@@ -11,4 +11,6 @@ public interface ChessGameDao {
     Optional<ChessGameResponse> findRecentPlayingGame();
 
     void updateGameStatus(ChessGameUpdateRequest chessGameUpdateRequest);
+
+    void deleteAll();
 }

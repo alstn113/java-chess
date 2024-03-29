@@ -59,4 +59,17 @@ public class MoveJdbcDao implements MoveDao {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void deleteAll() {
+        String query = "DELETE FROM move";
+
+        try (Connection connection = DBConnectionUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -8,4 +8,6 @@ public interface MoveDao {
     Long save(MoveRequest moveRequest);
 
     List<MoveResponse> findAll(Long chessGameId);
+
+    void deleteAll();
 }
