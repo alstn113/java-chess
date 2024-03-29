@@ -68,6 +68,7 @@ public class ChessController {
 
     private void status() {
         ChessGameStatus chessGameStatus = chessGame.status();
+
         OutputView.printChessGameStatus(chessGameStatus);
     }
 }

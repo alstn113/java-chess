@@ -31,9 +31,10 @@ public class MoveJdbcDao implements MoveDao {
         String query = "SELECT * FROM move WHERE chess_game_id = ?";
 
         try (Connection connection = DBConnectionUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
             preparedStatement.setLong(1, chessGameId);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             List<MoveResponse> pieceResponses = new ArrayList<>();
             while (resultSet.next()) {
