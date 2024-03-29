@@ -12,7 +12,8 @@ class ChessGameJdbcDaoTest {
     @Test
     void save() {
         ChessGameRequest chessGameRequest = ChessGameRequest.from(GameStatus.FINISHED);
-        chessGameJdbcDao.save(chessGameRequest);
+        Long id = chessGameJdbcDao.save(chessGameRequest);
+        System.out.println(id);
     }
 
     @DisplayName("최근 플레이 중인 체스 게임을 조회할 수 있다.")

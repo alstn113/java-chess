@@ -3,6 +3,7 @@ package chess.dao;
 import chess.database.DBConnectionUtil;
 import chess.dto.ChessGameRequest;
 import chess.dto.ChessGameResponse;
+import chess.dto.ChessGameUpdateRequest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,13 +13,21 @@ import java.util.Optional;
 public class ChessGameJdbcDao implements ChessGameDao {
 
     @Override
-    public void save(ChessGameRequest chessGameRequest) {
+    public Long save(ChessGameRequest chessGameRequest) {
         String query = "INSERT INTO chess_game (game_status) VALUES (?)";
 
         try (Connection connection = DBConnectionUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query,
+                     PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, chessGameRequest.gameStatus());
             preparedStatement.executeUpdate();
+
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getLong(1);
+            }
+
+            return -1L;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -42,6 +51,21 @@ public class ChessGameJdbcDao implements ChessGameDao {
             }
 
             return Optional.empty();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateGameStatus(ChessGameUpdateRequest chessGameUpdateRequest) {
+        String query = "UPDATE chess_game SET game_status = ? WHERE id = ?";
+
+        try (Connection connection = DBConnectionUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            preparedStatement.setString(1, chessGameUpdateRequest.gameStatus());
+            preparedStatement.setLong(2, chessGameUpdateRequest.id());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

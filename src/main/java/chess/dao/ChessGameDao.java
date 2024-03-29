@@ -2,10 +2,13 @@ package chess.dao;
 
 import chess.dto.ChessGameRequest;
 import chess.dto.ChessGameResponse;
+import chess.dto.ChessGameUpdateRequest;
 import java.util.Optional;
 
 public interface ChessGameDao {
-    void save(ChessGameRequest chessGameRequest);
+    Long save(ChessGameRequest chessGameRequest);
 
     Optional<ChessGameResponse> findRecentPlayingGame();
+
+    void updateGameStatus(ChessGameUpdateRequest chessGameUpdateRequest);
 }

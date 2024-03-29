@@ -7,20 +7,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoveJdbcDao implements MoveDao {
     @Override
-    public void save(MoveRequest moveRequest) {
+    public Long save(MoveRequest moveRequest) {
         String query = "INSERT INTO move (source, target, chess_game_id) VALUES (?, ?, ?)";
 
         try (Connection connection = DBConnectionUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query,
+                     Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, moveRequest.source());
             preparedStatement.setString(2, moveRequest.target());
             preparedStatement.setLong(3, moveRequest.chessGameId());
             preparedStatement.executeUpdate();
+
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getLong(1);
+            }
+
+            return -1L;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

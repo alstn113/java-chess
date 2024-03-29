@@ -16,7 +16,8 @@ class MoveJdbcDaoTest {
         Position source = Position.convert("a2");
         Position target = Position.convert("a4");
 
-        moveJdbcDao.save(MoveRequest.of(source, target, 1L));
+        Long id = moveJdbcDao.save(MoveRequest.of(source, target, 1L));
+        System.out.println(id);
     }
 
     @DisplayName("moveDao를 조회할 수 있다.")

@@ -5,6 +5,7 @@ import chess.controller.command.CommandExecutor;
 import chess.controller.command.GameCommand;
 import chess.domain.ChessGame;
 import chess.domain.ChessGameStatus;
+import chess.domain.GameStatus;
 import chess.domain.Move;
 import chess.domain.position.Position;
 import chess.service.ChessGameService;
@@ -17,8 +18,8 @@ public class ChessController {
     private final ChessGame chessGame;
     private final ChessGameService chessGameService;
     private final Map<GameCommand, CommandExecutor> commands = Map.of(
-            GameCommand.MOVE, this::move,
             GameCommand.START, args -> start(),
+            GameCommand.MOVE, this::move,
             GameCommand.END, args -> end(),
             GameCommand.STATUS, args -> status()
     );
@@ -33,6 +34,11 @@ public class ChessController {
 
         while (chessGame.isPlaying()) {
             repeatUntilValidCommand();
+        }
+
+        if (chessGame.isKingDead()) {
+            List<Move> moveHistory = chessGame.getMoveHistory();
+            chessGameService.addMovesToExistingOrNewPlayingGame(moveHistory, GameStatus.FINISHED);
         }
     }
 
@@ -65,13 +71,15 @@ public class ChessController {
         Position source = Position.convert(commandCondition.getSource());
         Position target = Position.convert(commandCondition.getTarget());
 
-        chessGame.move(source, target);
+        chessGame.moveAndRecord(source, target);
 
         OutputView.printChessBoard(chessGame.getBoard());
     }
 
     private void end() {
         chessGame.end();
+        List<Move> moveHistory = chessGame.getMoveHistory();
+        chessGameService.addMovesToExistingOrNewPlayingGame(moveHistory, GameStatus.PLAYING);
     }
 
     private void status() {
