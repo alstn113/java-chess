@@ -36,10 +36,7 @@ public class ChessController {
             repeatUntilValidCommand();
         }
 
-        if (chessGame.isKingDead()) {
-            List<Move> moveHistory = chessGame.getMoveHistory();
-            chessGameService.addMovesToExistingOrNewPlayingGame(moveHistory, GameStatus.FINISHED);
-        }
+        addMovesWhenKingIsDead();
     }
 
     private void executeCommand() {
@@ -86,5 +83,14 @@ public class ChessController {
         ChessGameStatus chessGameStatus = chessGame.status();
 
         OutputView.printChessGameStatus(chessGameStatus);
+    }
+
+    private void addMovesWhenKingIsDead() {
+        if (!chessGame.isKingDead()) {
+            return;
+        }
+
+        List<Move> moveHistory = chessGame.getMoveHistory();
+        chessGameService.addMovesToExistingOrNewPlayingGame(moveHistory, GameStatus.FINISHED);
     }
 }
