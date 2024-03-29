@@ -1,7 +1,5 @@
 package chess.dao;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import chess.domain.GameStatus;
 import chess.dto.ChessGameRequest;
 import org.junit.jupiter.api.DisplayName;

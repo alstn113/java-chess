@@ -29,10 +29,11 @@ public class ChessGameJdbcDao implements ChessGameDao {
         String query = "SELECT * FROM chess_game WHERE game_status = ? ORDER BY id DESC LIMIT 1";
 
         try (Connection connection = DBConnectionUtil.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
 
             preparedStatement.setString(1, "PLAYING");
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 return Optional.of(new ChessGameResponse(

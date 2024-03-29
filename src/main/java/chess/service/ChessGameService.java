@@ -7,6 +7,7 @@ import chess.domain.Move;
 import chess.dto.ChessGameRequest;
 import chess.dto.ChessGameResponse;
 import chess.dto.MoveResponse;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,11 +25,19 @@ public class ChessGameService {
         chessGameDao.save(chessGameRequest);
     }
 
-    public Optional<ChessGameResponse> getRecentPlayingGame() {
+    public List<Move> getRecentPlayingGameMoves() {
+        Optional<ChessGameResponse> recentPlayingGame = getRecentPlayingGame();
+
+        return recentPlayingGame.map(ChessGameResponse::id)
+                .map(this::getMovesByChessGameId)
+                .orElse(Collections.emptyList());
+    }
+
+    private Optional<ChessGameResponse> getRecentPlayingGame() {
         return chessGameDao.findRecentPlayingGame();
     }
 
-    public List<Move> getMovesByChessGameId(long chessGameId) {
+    private List<Move> getMovesByChessGameId(Long chessGameId) {
         return moveDao.findAll(chessGameId).stream()
                 .map(MoveResponse::from)
                 .toList();

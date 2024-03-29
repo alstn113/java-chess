@@ -1,8 +1,8 @@
 package chess.domain.piece;
 
-import chess.domain.board.Board;
 import chess.domain.Color;
 import chess.domain.Direction;
+import chess.domain.board.Board;
 import chess.domain.position.Position;
 import java.util.Set;
 

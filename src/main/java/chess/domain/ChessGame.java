@@ -4,6 +4,7 @@ import chess.domain.board.Board;
 import chess.domain.position.Position;
 import chess.domain.state.GameState;
 import chess.domain.state.ReadyState;
+import java.util.List;
 
 public class ChessGame {
     private final Board board;
@@ -14,15 +15,14 @@ public class ChessGame {
         this.gameState = new ReadyState();
     }
 
-    public void start() {
+    public void start(List<Move> moves) {
         this.gameState = gameState.start();
+
+        load(moves);
     }
 
-    public void move(String source, String target) {
-        Position sourcePosition = Position.convert(source);
-        Position targetPosition = Position.convert(target);
-
-        this.gameState = gameState.move(board, sourcePosition, targetPosition);
+    public void move(Position source, Position target) {
+        this.gameState = gameState.move(board, source, target);
     }
 
     public void end() {
@@ -37,6 +37,15 @@ public class ChessGame {
         this.gameState = gameState.status();
 
         return chessGameStatus;
+    }
+
+    private void load(List<Move> moves) {
+        moves.forEach(move -> {
+            Position source = move.source();
+            Position target = move.target();
+
+            move(source, target);
+        });
     }
 
     public boolean isPlaying() {

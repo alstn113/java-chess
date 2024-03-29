@@ -1,10 +1,13 @@
 package chess.controller;
 
-import chess.domain.ChessGame;
-import chess.domain.ChessGameStatus;
 import chess.controller.command.CommandCondition;
 import chess.controller.command.CommandExecutor;
 import chess.controller.command.GameCommand;
+import chess.domain.ChessGame;
+import chess.domain.ChessGameStatus;
+import chess.domain.Move;
+import chess.domain.position.Position;
+import chess.service.ChessGameService;
 import chess.view.InputView;
 import chess.view.OutputView;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.Map;
 
 public class ChessController {
     private final ChessGame chessGame;
+    private final ChessGameService chessGameService;
     private final Map<GameCommand, CommandExecutor> commands = Map.of(
             GameCommand.MOVE, this::move,
             GameCommand.START, args -> start(),
@@ -19,8 +23,9 @@ public class ChessController {
             GameCommand.STATUS, args -> status()
     );
 
-    public ChessController(ChessGame chessGame) {
+    public ChessController(ChessGame chessGame, ChessGameService chessGameService) {
         this.chessGame = chessGame;
+        this.chessGameService = chessGameService;
     }
 
     public void run() {
@@ -49,14 +54,17 @@ public class ChessController {
     }
 
     private void start() {
-        chessGame.start();
+        List<Move> moves = chessGameService.getRecentPlayingGameMoves();
+
+        chessGame.start(moves);
 
         OutputView.printChessBoard(chessGame.getBoard());
     }
 
     private void move(CommandCondition commandCondition) {
-        String source = commandCondition.getSource();
-        String target = commandCondition.getTarget();
+        Position source = Position.convert(commandCondition.getSource());
+        Position target = Position.convert(commandCondition.getTarget());
+
         chessGame.move(source, target);
 
         OutputView.printChessBoard(chessGame.getBoard());
