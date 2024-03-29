@@ -42,7 +42,7 @@ public class ChessGameJdbcDao implements ChessGameDao {
 
             return Optional.empty();
         } catch (SQLException e) {
-            throw new RuntimeException("Error occurred while finding recent playing game", e);
+            throw new RuntimeException(e);
         }
     }
 }
