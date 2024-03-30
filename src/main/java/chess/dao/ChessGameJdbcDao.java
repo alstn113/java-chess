@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 
 public class ChessGameJdbcDao implements ChessGameDao {
@@ -18,7 +19,7 @@ public class ChessGameJdbcDao implements ChessGameDao {
 
         try (Connection connection = DBConnectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query,
-                     PreparedStatement.RETURN_GENERATED_KEYS)) {
+                     Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, chessGameRequest.gameStatus());
             preparedStatement.executeUpdate();
 
