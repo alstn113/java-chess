@@ -36,6 +36,26 @@ public class MoveJdbcDao implements MoveDao {
     }
 
     @Override
+    public void saveAll(List<MoveRequest> moveRequests) {
+        String query = "INSERT INTO move (source, target, chess_game_id) VALUES (?, ?, ?)";
+
+        try (Connection connection = DBConnectionUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)
+        ) {
+            for (MoveRequest moveRequest : moveRequests) {
+                preparedStatement.setString(1, moveRequest.source());
+                preparedStatement.setString(2, moveRequest.target());
+                preparedStatement.setLong(3, moveRequest.chessGameId());
+                preparedStatement.addBatch();
+            }
+
+            preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public List<MoveResponse> findAll(Long chessGameId) {
         String query = "SELECT * FROM move WHERE chess_game_id = ?";
 

@@ -39,4 +39,26 @@ class MoveJdbcDaoTest {
         assertThat(moves).containsExactly(new Move(PositionFixture.A2, PositionFixture.A4),
                 new Move(PositionFixture.A7, PositionFixture.A5));
     }
+
+    @DisplayName("moveDao들을 한 번에 저장할 수 있다.")
+    @Test
+    void saveAll() {
+        Long id = chessGameDao.save(new ChessGameRequest("PLAYING"));
+
+        List<MoveRequest> moveRequests = List.of(
+                MoveRequest.of(PositionFixture.A2, PositionFixture.A4, id),
+                MoveRequest.of(PositionFixture.A7, PositionFixture.A5, id)
+        );
+
+        moveDao.saveAll(moveRequests);
+
+        List<MoveResponse> moveResponses = moveDao.findAll(id);
+
+        List<Move> moves = moveResponses.stream()
+                .map(MoveResponse::from)
+                .toList();
+
+        assertThat(moves).containsExactly(new Move(PositionFixture.A2, PositionFixture.A4),
+                new Move(PositionFixture.A7, PositionFixture.A5));
+    }
 }

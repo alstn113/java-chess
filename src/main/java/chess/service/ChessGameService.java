@@ -49,11 +49,11 @@ public class ChessGameService {
     }
 
     private void addMovesAndUpdateStatus(List<Move> moves, GameStatus gameStatus, Long id) {
-        moves.forEach(move -> {
-            MoveRequest moveRequest = MoveRequest.of(move.source(), move.target(), id);
-            moveDao.save(moveRequest);
-        });
+        List<MoveRequest> moveRequests = moves.stream()
+                .map(move -> MoveRequest.of(move.source(), move.target(), id))
+                .toList();
 
+        moveDao.saveAll(moveRequests);
         chessGameDao.updateGameStatus(ChessGameUpdateRequest.of(id, gameStatus));
     }
 
