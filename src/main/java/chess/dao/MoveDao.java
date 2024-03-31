@@ -5,11 +5,9 @@ import chess.dto.MoveResponse;
 import java.util.List;
 
 public interface MoveDao {
-    Long save(MoveRequest moveRequest);
+    void save(MoveRequest moveRequest);
 
-    void saveAll(List<MoveRequest> moveRequests);
-
-    List<MoveResponse> findAll(Long chessGameId);
+    List<MoveResponse> findAll();
 
     void deleteAll();
 }

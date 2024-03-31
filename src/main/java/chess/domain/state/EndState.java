@@ -1,5 +1,6 @@
 package chess.domain.state;
 
+import chess.domain.Color;
 import chess.domain.board.Board;
 import chess.domain.position.Position;
 
@@ -27,5 +28,10 @@ public class EndState implements GameState {
     @Override
     public boolean isPlaying() {
         return false;
+    }
+
+    @Override
+    public Color getCurrentTurn() {
+        return Color.NONE;
     }
 }

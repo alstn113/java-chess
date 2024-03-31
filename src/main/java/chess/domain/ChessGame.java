@@ -4,34 +4,34 @@ import chess.domain.board.Board;
 import chess.domain.position.Position;
 import chess.domain.state.GameState;
 import chess.domain.state.ReadyState;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ChessGame {
     private final Board board;
     private GameState gameState;
-    private final List<Move> moveHistory;
 
     public ChessGame(Board board) {
         this.board = board;
         this.gameState = new ReadyState();
-        this.moveHistory = new ArrayList<>();
     }
 
-    public void start(List<Move> moves) {
+    public void start(List<Move> moveHistories) {
         this.gameState = gameState.start();
 
-        load(moves);
+        loadMoveHistory(moveHistories);
+    }
+
+    public void loadMoveHistory(List<Move> moves) {
+        moves.forEach(move -> {
+            Position source = move.source();
+            Position target = move.target();
+
+            move(source, target);
+        });
     }
 
     public void move(Position source, Position target) {
         this.gameState = gameState.move(board, source, target);
-    }
-
-    public void moveAndRecord(Position source, Position target) {
-        move(source, target);
-        moveHistory.add(new Move(source, target));
     }
 
     public void end() {
@@ -48,25 +48,20 @@ public class ChessGame {
         return chessGameStatus;
     }
 
-    private void load(List<Move> moves) {
-        moves.forEach(move -> {
-            Position source = move.source();
-            Position target = move.target();
-
-            move(source, target);
-        });
-    }
-
     public boolean isPlaying() {
         return gameState.isPlaying();
     }
 
-    public boolean isKingDead() {
-        return board.isKingDead();
+    public ChessGameResult getGameResult() {
+        return ChessGameResult.from(board);
     }
 
-    public List<Move> getMoveHistory() {
-        return Collections.unmodifiableList(moveHistory);
+    public boolean isKingDead() {
+        return getGameResult().isKingDead();
+    }
+
+    public Color getCurrentTurn() {
+        return gameState.getCurrentTurn();
     }
 
     public Board getBoard() {

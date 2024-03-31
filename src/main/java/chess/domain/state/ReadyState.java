@@ -5,9 +5,11 @@ import chess.domain.board.Board;
 import chess.domain.position.Position;
 
 public class ReadyState implements GameState {
+    private static final Color FIRST_TURN = Color.WHITE;
+
     @Override
     public GameState start() {
-        return new MoveState(Color.WHITE);
+        return new MoveState(FIRST_TURN);
     }
 
     @Override
@@ -28,5 +30,10 @@ public class ReadyState implements GameState {
     @Override
     public boolean isPlaying() {
         return true;
+    }
+
+    @Override
+    public Color getCurrentTurn() {
+        return FIRST_TURN;
     }
 }

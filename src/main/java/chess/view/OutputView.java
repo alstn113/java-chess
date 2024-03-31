@@ -1,6 +1,8 @@
 package chess.view;
 
+import chess.domain.ChessGameResult;
 import chess.domain.ChessGameStatus;
+import chess.domain.Color;
 import chess.domain.board.Board;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,11 +32,20 @@ public class OutputView {
         System.out.println(message);
     }
 
-    public static void printChessBoard(Board board) {
+    public static void printChessBoard(Board board, Color currentTurn) {
         List<List<String>> boardDisplays = createBoardChecker();
         putPieces(board, boardDisplays);
 
+        printCurrentTurnMessage(currentTurn);
         boardDisplays.forEach(boardPieces -> System.out.println(String.join(" ", boardPieces)));
+    }
+
+    private static void printCurrentTurnMessage(Color currentTurn) {
+        if (currentTurn == Color.NONE) {
+            return;
+        }
+        
+        System.out.printf("  [ %s 턴 ]%n", currentTurn);
     }
 
     private static List<List<String>> createBoardChecker() {
@@ -60,21 +71,17 @@ public class OutputView {
         double whiteScore = chessGameStatus.whiteScore();
         double blackScore = chessGameStatus.blackScore();
 
-        String gameResultMessage = createGameResultMessage(whiteScore, blackScore);
         String message = String.format("흰색 점수: %.1f, 검은색 점수: %.1f", whiteScore, blackScore);
 
-        System.out.println(message + NEW_LINE + gameResultMessage);
+        System.out.println(message);
     }
 
-    private static String createGameResultMessage(double whiteScore, double blackScore) {
-        if (whiteScore > blackScore) {
-            return "흰색 승리";
+    public static void printGameResult(ChessGameResult gameResult) {
+        if (gameResult == ChessGameResult.WHITE_WIN) {
+            System.out.println("흰색 승리");
+            return;
         }
 
-        if (whiteScore < blackScore) {
-            return "검은색 승리";
-        }
-
-        return "무승부";
+        System.out.println("검은색 승리");
     }
 }

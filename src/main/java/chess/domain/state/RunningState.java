@@ -20,4 +20,5 @@ public abstract class RunningState implements GameState {
     public boolean isPlaying() {
         return true;
     }
+
 }

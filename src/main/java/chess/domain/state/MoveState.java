@@ -21,4 +21,9 @@ public class MoveState extends RunningState {
 
         return new MoveState(color.getOpposite());
     }
+
+    @Override
+    public Color getCurrentTurn() {
+        return color;
+    }
 }
