@@ -1,7 +1,7 @@
 package chess.domain.game;
 
-import chess.domain.position.Move;
 import chess.domain.board.Board;
+import chess.domain.position.Move;
 import chess.domain.position.Position;
 import chess.domain.state.GameState;
 import chess.domain.state.ReadyState;
@@ -53,19 +53,19 @@ public class ChessGame {
         return gameState.isPlaying();
     }
 
-    public ChessGameResult getGameResult() {
+    public ChessGameResult gameResult() {
         return ChessGameResult.from(board);
     }
 
     public boolean isKingDead() {
-        return getGameResult().isKingDead();
+        return gameResult().isKingDead();
     }
 
-    public Color getCurrentTurn() {
+    public Color currentTurn() {
         return gameState.getCurrentTurn();
     }
 
-    public Board getBoard() {
+    public Board board() {
         return board;
     }
 }

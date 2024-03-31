@@ -14,82 +14,83 @@ import java.util.List;
 import java.util.Map;
 
 public class ChessController {
-    private final ChessGame chessGame;
     private final ChessGameService chessGameService;
     private final Map<GameCommand, CommandExecutor> commands = Map.of(
-            GameCommand.START, ignore -> start(),
-            GameCommand.STATUS, ignore -> status(),
-            GameCommand.END, ignore -> end(),
+            GameCommand.START, (chessGame, commandCondition) -> start(chessGame),
+            GameCommand.STATUS, (chessGame, commandCondition) -> status(chessGame),
+            GameCommand.END, (chessGame, commandCondition) -> end(chessGame),
             GameCommand.MOVE, this::move
     );
 
-    public ChessController(ChessGame chessGame, ChessGameService chessGameService) {
-        this.chessGame = chessGame;
+    public ChessController(ChessGameService chessGameService) {
         this.chessGameService = chessGameService;
     }
 
     public void run() {
         OutputView.printGameStartMessage();
+        ChessGame chessGame = chessGameService.createInitialChessGame();
 
         while (chessGame.isPlaying()) {
-            repeatUntilValidCommand();
+            repeatUntilValidCommand(chessGame);
         }
 
-        whenKingIsDead();
+        whenKingIsDead(chessGame);
     }
 
-    private void whenKingIsDead() {
-        if (chessGame.isKingDead()) {
-            OutputView.printGameResult(chessGame.getGameResult());
-            chessGameService.deleteAllMoves();
-        }
-    }
-
-    private void executeCommand() {
+    private void executeCommand(ChessGame chessGame) {
         List<String> inputCommand = InputView.readGameCommand();
         CommandCondition commandCondition = CommandCondition.of(inputCommand);
         GameCommand gameCommand = commandCondition.gameCommand();
 
-        commands.get(gameCommand).execute(commandCondition);
+        commands.get(gameCommand).execute(chessGame, commandCondition);
     }
 
-    private void repeatUntilValidCommand() {
+    private void repeatUntilValidCommand(ChessGame chessGame) {
         try {
-            executeCommand();
+            executeCommand(chessGame);
         } catch (RuntimeException e) {
             OutputView.printErrorMessage(e.getMessage());
-            repeatUntilValidCommand();
+            repeatUntilValidCommand(chessGame);
         }
     }
 
-    private void start() {
+    private void whenKingIsDead(ChessGame chessGame) {
+        if (!chessGame.isKingDead()) {
+            return;
+        }
+
+        OutputView.printGameResult(chessGame.gameResult());
+        chessGameService.deleteAllMoves();
+    }
+
+    private void start(ChessGame chessGame) {
         List<Move> moveHistories = chessGameService.getMoveHistories();
         chessGame.start(moveHistories);
 
-        printChessBoard();
+        printChessBoard(chessGame);
     }
 
-    private void move(CommandCondition commandCondition) {
+    private void move(ChessGame chessGame, CommandCondition commandCondition) {
         Position source = Position.convert(commandCondition.getSource());
         Position target = Position.convert(commandCondition.getTarget());
 
         chessGame.move(source, target);
         chessGameService.addMoveHistory(source, target);
 
-        printChessBoard();
+        printChessBoard(chessGame);
     }
 
-    private void end() {
+    private void end(ChessGame chessGame) {
         chessGame.end();
     }
 
-    private void status() {
+    private void status(ChessGame chessGame) {
         ChessGameStatus chessGameStatus = chessGame.status();
 
         OutputView.printChessGameStatus(chessGameStatus);
     }
 
-    private void printChessBoard() {
-        OutputView.printChessBoard(chessGame.getBoard(), chessGame.getCurrentTurn());
+    private void printChessBoard(ChessGame chessGame) {
+        OutputView.printChessBoard(chessGame.board(), chessGame.currentTurn());
     }
 }

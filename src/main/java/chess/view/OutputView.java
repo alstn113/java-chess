@@ -1,9 +1,9 @@
 package chess.view;
 
+import chess.domain.board.Board;
 import chess.domain.game.ChessGameResult;
 import chess.domain.game.ChessGameStatus;
 import chess.domain.game.Color;
-import chess.domain.board.Board;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

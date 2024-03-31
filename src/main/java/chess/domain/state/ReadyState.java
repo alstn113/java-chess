@@ -1,7 +1,7 @@
 package chess.domain.state;
 
-import chess.domain.game.Color;
 import chess.domain.board.Board;
+import chess.domain.game.Color;
 import chess.domain.position.Position;
 
 public class ReadyState implements GameState {

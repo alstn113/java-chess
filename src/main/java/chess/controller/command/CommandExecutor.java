@@ -1,6 +1,8 @@
 package chess.controller.command;
 
+import chess.domain.game.ChessGame;
+
 @FunctionalInterface
 public interface CommandExecutor {
-    void execute(CommandCondition commandCondition);
+    void execute(ChessGame chessGame, CommandCondition commandCondition);
 }
