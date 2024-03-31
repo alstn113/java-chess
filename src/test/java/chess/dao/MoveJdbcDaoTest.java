@@ -2,7 +2,7 @@ package chess.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.domain.Move;
+import chess.domain.position.Move;
 import chess.dto.MoveRequest;
 import chess.dto.MoveResponse;
 import chess.fixture.PositionFixture;

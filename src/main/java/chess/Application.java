@@ -2,7 +2,7 @@ package chess;
 
 import chess.controller.ChessController;
 import chess.dao.MoveJdbcDao;
-import chess.domain.ChessGame;
+import chess.domain.game.ChessGame;
 import chess.domain.board.BoardFactory;
 import chess.service.ChessGameService;
 

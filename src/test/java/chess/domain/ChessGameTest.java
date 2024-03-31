@@ -3,6 +3,7 @@ package chess.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import chess.domain.board.BoardFactory;
+import chess.domain.game.ChessGame;
 import chess.domain.position.Position;
 import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;

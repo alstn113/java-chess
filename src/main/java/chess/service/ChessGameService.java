@@ -1,7 +1,7 @@
 package chess.service;
 
 import chess.dao.MoveDao;
-import chess.domain.Move;
+import chess.domain.position.Move;
 import chess.domain.position.Position;
 import chess.dto.MoveRequest;
 import chess.dto.MoveResponse;

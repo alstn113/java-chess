@@ -1,5 +1,6 @@
-package chess.domain;
+package chess.domain.game;
 
+import chess.domain.position.Move;
 import chess.domain.board.Board;
 import chess.domain.position.Position;
 import chess.domain.state.GameState;

@@ -1,6 +1,6 @@
 package chess.dto;
 
-import chess.domain.Move;
+import chess.domain.position.Move;
 import chess.domain.position.Position;
 
 public record MoveResponse(long id, String source, String target) {

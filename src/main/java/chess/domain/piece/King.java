@@ -1,7 +1,7 @@
 package chess.domain.piece;
 
-import chess.domain.Color;
-import chess.domain.Direction;
+import chess.domain.game.Color;
+import chess.domain.position.Direction;
 import java.util.Set;
 
 public class King extends SingleStepPiece {

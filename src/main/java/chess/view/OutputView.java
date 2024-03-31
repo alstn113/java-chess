@@ -1,8 +1,8 @@
 package chess.view;
 
-import chess.domain.ChessGameResult;
-import chess.domain.ChessGameStatus;
-import chess.domain.Color;
+import chess.domain.game.ChessGameResult;
+import chess.domain.game.ChessGameStatus;
+import chess.domain.game.Color;
 import chess.domain.board.Board;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +44,7 @@ public class OutputView {
         if (currentTurn == Color.NONE) {
             return;
         }
-        
+
         System.out.printf("  [ %s 턴 ]%n", currentTurn);
     }
 

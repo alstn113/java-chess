@@ -1,7 +1,7 @@
 package chess.domain.piece;
 
-import chess.domain.Color;
-import chess.domain.Direction;
+import chess.domain.game.Color;
+import chess.domain.position.Direction;
 import chess.domain.board.Board;
 import chess.domain.position.Position;
 import java.util.HashSet;
