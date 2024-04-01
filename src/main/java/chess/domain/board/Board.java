@@ -79,12 +79,6 @@ public class Board {
                 .noneMatch(Piece::isKing);
     }
 
-    public boolean isKingDead() {
-        return pieces.values().stream()
-                .filter(Piece::isKing)
-                .count() != 2;
-    }
-
     public Map<Position, Piece> getPieces() {
         return Collections.unmodifiableMap(pieces);
     }
