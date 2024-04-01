@@ -91,6 +91,6 @@ public class ChessController {
     }
 
     private void printChessBoard(ChessGame chessGame) {
-        OutputView.printChessBoard(chessGame.board(), chessGame.currentTurn());
+        OutputView.printChessBoard(chessGame.board(), chessGame.currentColor());
     }
 }

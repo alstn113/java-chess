@@ -15,5 +15,5 @@ public interface GameState {
 
     boolean isPlaying();
 
-    Color getCurrentTurn();
+    Color getCurrentColor();
 }

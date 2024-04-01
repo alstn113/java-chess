@@ -31,7 +31,7 @@ public class EndState implements GameState {
     }
 
     @Override
-    public Color getCurrentTurn() {
+    public Color getCurrentColor() {
         return Color.NONE;
     }
 }

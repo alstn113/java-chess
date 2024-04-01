@@ -33,7 +33,7 @@ public class ReadyState implements GameState {
     }
 
     @Override
-    public Color getCurrentTurn() {
+    public Color getCurrentColor() {
         return FIRST_TURN;
     }
 }

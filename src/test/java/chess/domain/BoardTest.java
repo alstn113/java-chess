@@ -67,14 +67,14 @@ class BoardTest {
 
         @DisplayName("내 말이 아니면 예외를 발생한다")
         @Test
-        void notMyTurn() {
-            Color turn = Color.BLACK;
+        void notMyColor() {
+            Color color = Color.BLACK;
             Board board = BoardFactory.createInitialBoard();
             Position sourcePosition = PositionFixture.A1;
             Position targetPosition = PositionFixture.A2;
 
             assertThatThrownBy(
-                    () -> board.move(sourcePosition, targetPosition, turn))
+                    () -> board.move(sourcePosition, targetPosition, color))
                     .isInstanceOf(IllegalArgumentException.class);
         }
 

@@ -23,7 +23,7 @@ public class MoveState extends RunningState {
     }
 
     @Override
-    public Color getCurrentTurn() {
+    public Color getCurrentColor() {
         return color;
     }
 }

@@ -32,20 +32,20 @@ public class OutputView {
         System.out.println(message);
     }
 
-    public static void printChessBoard(Board board, Color currentTurn) {
+    public static void printChessBoard(Board board, Color currentColor) {
         List<List<String>> boardDisplays = createBoardChecker();
         putPieces(board, boardDisplays);
 
-        printCurrentTurnMessage(currentTurn);
+        printCurrentColorMessage(currentColor);
         boardDisplays.forEach(boardPieces -> System.out.println(String.join(" ", boardPieces)));
     }
 
-    private static void printCurrentTurnMessage(Color currentTurn) {
-        if (currentTurn == Color.NONE) {
+    private static void printCurrentColorMessage(Color currentColor) {
+        if (currentColor == Color.NONE) {
             return;
         }
 
-        System.out.printf("  [ %s 턴 ]%n", currentTurn);
+        System.out.printf("  [ %s 턴 ]%n", currentColor);
     }
 
     private static List<List<String>> createBoardChecker() {

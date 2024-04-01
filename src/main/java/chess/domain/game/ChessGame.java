@@ -61,8 +61,8 @@ public class ChessGame {
         return gameResult().isKingDead();
     }
 
-    public Color currentTurn() {
-        return gameState.getCurrentTurn();
+    public Color currentColor() {
+        return gameState.getCurrentColor();
     }
 
     public Board board() {

@@ -44,7 +44,7 @@ public class Board {
     private void validateMove(Position sourcePosition, Position targetPosition, Color color, Piece sourcePiece) {
         validateIsSamePosition(sourcePosition, targetPosition);
         validateSourceIsEmpty(sourcePiece);
-        validateIsNotMyTurn(color, sourcePiece);
+        validateIsNotMyColor(color, sourcePiece);
         validateIsNotMovablePosition(sourcePosition, targetPosition, sourcePiece);
     }
 
@@ -60,7 +60,7 @@ public class Board {
         }
     }
 
-    private void validateIsNotMyTurn(Color color, Piece sourcePiece) {
+    private void validateIsNotMyColor(Color color, Piece sourcePiece) {
         if (!sourcePiece.isSameColor(color)) {
             throw new IllegalArgumentException("선택한 위치의 기물은 내 말이 아닙니다.");
         }
